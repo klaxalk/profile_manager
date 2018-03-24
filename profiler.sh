@@ -57,7 +57,7 @@ file_path: ...
   fi
 
   IFS=' ' read -r -a ADDITIONS_ARRAY <<< "$EPIGEN_ADDITIONS"
-  IFS=' ' read -r -a REDUCTIONS_ARRAY <<< "$EPIGEN_REDUCTIONS"
+  IFS=' ' read -r -a DELETIONS_ARRAY <<< "$EPIGEN_DELETIONS"
 
   # parse the csv file and extract file paths
   i="0"
@@ -101,11 +101,11 @@ file_path: ...
         done
 
         # for each reduction mode
-        for ((j=0; j < ${#REDUCTIONS_ARRAY[*]}; j++));
+        for ((j=0; j < ${#DELETIONS_ARRAY[*]}; j++));
         do
 
           # set the mode on the local file
-          epigen deletion -s "$localpath" "${REDUCTIONS_ARRAY[$j]}"
+          epigen deletion -s "$localpath" "${DELETIONS_ARRAY[$j]}"
 
         done
 
