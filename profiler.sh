@@ -68,7 +68,7 @@ file_path: ...
   OPERATION="$1"
   N_FILES="$i"
 
-  source "$PROFILER_SOURCE_DIR"/vim-epigen/epigen.sh
+  source "$PROFILER_SOURCE_DIR"/epigen/epigen.sh
 
   if [[ "$OPERATION" == "deploy" ]]; then
 
