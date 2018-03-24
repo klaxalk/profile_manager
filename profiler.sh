@@ -89,6 +89,7 @@ file_path: ...
         cp "$gitpath" "$localpath" 
 
         epigen addition -A "$localpath" 
+        epigen deletion -A "$localpath" 
 
         # for each addition mode
         for ((j=0; j < ${#ADDITIONS_ARRAY[*]}; j++));
@@ -104,7 +105,7 @@ file_path: ...
         do
 
           # set the mode on the local file
-          epigen reduction -s "$localpath" "${REDUCTIONS_ARRAY[$j]}"
+          epigen deletion -s "$localpath" "${REDUCTIONS_ARRAY[$j]}"
 
         done
 
@@ -133,7 +134,7 @@ file_path: ...
         cp "$localpath" "$gitpath" 
 
         epigen addition -A "$gitpath" 
-        epigen reduction -A "$gitpath"
+        epigen deletion -A "$gitpath"
 
       else
 
