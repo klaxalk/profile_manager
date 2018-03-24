@@ -60,7 +60,9 @@ file_path: ...
 
   # parse the csv file and extract file paths
   i="0"
-  while IFS=, read -r gitloc[$i] locloc[$i]; do
+  while IFS=, read -r path1 path2; do
+    gitloc[$i]=`eval echo "$path1"`
+    locloc[$i]=`eval echo "$path2"`
     # echo "$i ${gitloc[$i]} ${locloc[$i]}"
     i=$(expr $i + 1)
   done < "$FILES_PATH"
@@ -77,8 +79,8 @@ file_path: ...
     do
 
       # get the full path to the file
-      gitpath=$(expandPath ${gitloc[$i]})
-      localpath=$(expandPath ${locloc[$i]})
+      gitpath="$(expandPath ${gitloc[$i]})"
+      localpath="$(expandPath ${locloc[$i]})"
 
       # copy the file from the git path to the local path
       if [ -e "$localpath" ]; then
@@ -120,8 +122,8 @@ file_path: ...
     do
 
       # get the full path to the file
-      gitpath=$(expandPath ${gitloc[$i]})
-      localpath=$(expandPath ${locloc[$i]})
+      gitpath="$(expandPath ${gitloc[$i]})"
+      localpath="$(expandPath ${locloc[$i]})"
 
       # copy the file from the git path to the local path
       if [ -e "$localpath" ]; then
