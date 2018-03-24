@@ -1,5 +1,3 @@
-#!/bin/bash
-
 PROFILER_SOURCE_DIR=`dirname "$BASH_SOURCE"`
 export PROFILER_SOURCE_DIR=`( cd "$PROFILER_SOURCE_DIR" && pwd )`
 
@@ -58,6 +56,9 @@ file_path: ...
     return 1
   fi
 
+  IFS=' ' read -r -a ADDITIONS_ARRAY <<< "$EPIGEN_ADDITIONS"
+  IFS=' ' read -r -a REDUCTIONS_ARRAY <<< "$EPIGEN_REDUCTIONS"
+
   # parse the csv file and extract file paths
   i="0"
   while IFS=, read -r path1 path2; do
@@ -90,20 +91,20 @@ file_path: ...
         epigen addition -A "$localpath" 
 
         # for each addition mode
-        for ((j=0; j < ${#EPIGEN_ADDITIONS[*]}; j++));
+        for ((j=0; j < ${#ADDITIONS_ARRAY[*]}; j++));
         do
 
           # set the mode on the local file
-          epigen addition -s "$localpath" "${EPIGEN_ADDITIONS[$j]}"
+          epigen addition -s "$localpath" "${ADDITIONS_ARRAY[$j]}"
 
         done
 
         # for each reduction mode
-        for ((j=0; j < ${#EPIGEN_REDUCTIONS[*]}; j++));
+        for ((j=0; j < ${#REDUCTIONS_ARRAY[*]}; j++));
         do
 
           # set the mode on the local file
-          epigen reduction -s "$localpath" "${EPIGEN_REDUCTIONS[$j]}"
+          epigen reduction -s "$localpath" "${REDUCTIONS_ARRAY[$j]}"
 
         done
 
