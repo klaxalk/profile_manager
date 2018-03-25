@@ -56,8 +56,9 @@ file_path: ...
     return 1
   fi
 
-  IFS=' ' read -r -a ADDITIONS_ARRAY <<< "$EPIGEN_ADDITIONS"
-  IFS=' ' read -r -a DELETIONS_ARRAY <<< "$EPIGEN_DELETIONS"
+  IFS=' ' read -r -a ADDITIONS_ARRAY <<< "$PROFILER_ADDITIONS"
+  IFS=' ' read -r -a DELETIONS_ARRAY <<< "$PROFILER_DELETIONS"
+  IFS=' ' read -r -a BOTH_ARRAY <<< "$PROFILER_BOTH"
 
   # parse the csv file and extract file paths
   i="0"
@@ -106,6 +107,16 @@ file_path: ...
 
           # set the mode on the local file
           epigen deletion -s "$localpath" "${DELETIONS_ARRAY[$j]}"
+
+        done
+
+        # for both
+        for ((j=0; j < ${#BOTH_ARRAY[*]}; j++));
+        do
+
+          # set the mode on the local file
+          epigen addition -s "$localpath" "${BOTH_ARRAY[$j]}"
+          epigen deletion -s "$localpath" "${BOTH_ARRAY[$j]}"
 
         done
 
