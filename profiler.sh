@@ -85,46 +85,43 @@ file_path: ...
       localpath="$(expandPath ${locloc[$i]})"
 
       # copy the file from the git path to the local path
-      if [ -e "$localpath" ]; then
-
-        cp "$gitpath" "$localpath" 
-
-        epigen addition -A "$localpath" 
-        epigen deletion -A "$localpath" 
-
-        # for each addition mode
-        for ((j=0; j < ${#ADDITIONS_ARRAY[*]}; j++));
-        do
-
-          # set the mode on the local file
-          epigen addition -s "$localpath" "${ADDITIONS_ARRAY[$j]}"
-
-        done
-
-        # for each reduction mode
-        for ((j=0; j < ${#DELETIONS_ARRAY[*]}; j++));
-        do
-
-          # set the mode on the local file
-          epigen deletion -s "$localpath" "${DELETIONS_ARRAY[$j]}"
-
-        done
-
-        # for both
-        for ((j=0; j < ${#BOTH_ARRAY[*]}; j++));
-        do
-
-          # set the mode on the local file
-          epigen addition -s "$localpath" "${BOTH_ARRAY[$j]}"
-          epigen deletion -s "$localpath" "${BOTH_ARRAY[$j]}"
-
-        done
-
-      else
-
-        echo "Profiler: Omitting ${locloc[$i]} since the local file does not exist"
-
+      if [ ! -e "$localpath" ]; then
+        mkdir -p `dirname "$localpath"`
+        cp "$gitpath" "$localpath"
       fi
+
+      cp "$gitpath" "$localpath" 
+
+      epigen addition -A "$localpath" 
+      epigen deletion -A "$localpath" 
+
+      # for each addition mode
+      for ((j=0; j < ${#ADDITIONS_ARRAY[*]}; j++));
+      do
+
+        # set the mode on the local file
+        epigen addition -s "$localpath" "${ADDITIONS_ARRAY[$j]}"
+
+      done
+
+      # for each reduction mode
+      for ((j=0; j < ${#DELETIONS_ARRAY[*]}; j++));
+      do
+
+        # set the mode on the local file
+        epigen deletion -s "$localpath" "${DELETIONS_ARRAY[$j]}"
+
+      done
+
+      # for both
+      for ((j=0; j < ${#BOTH_ARRAY[*]}; j++));
+      do
+
+        # set the mode on the local file
+        epigen addition -s "$localpath" "${BOTH_ARRAY[$j]}"
+        epigen deletion -s "$localpath" "${BOTH_ARRAY[$j]}"
+
+      done
 
     done
 
@@ -139,19 +136,16 @@ file_path: ...
       localpath="$(expandPath ${locloc[$i]})"
 
       # copy the file from the git path to the local path
-      if [ -e "$localpath" ]; then
-
-        # copy the file from the local path to the git path
-        cp "$localpath" "$gitpath" 
-
-        epigen addition -A "$gitpath" 
-        epigen deletion -A "$gitpath"
-
-      else
-
-        echo "Profiler: Omitting ${locloc[$i]} since the local file does not exist"
-
+      if [ ! -e "$localpath" ]; then
+        mkdir -p `dirname "$localpath"`
+        cp "$gitpath" "$localpath"
       fi
+
+      # copy the file from the local path to the git path
+      cp "$localpath" "$gitpath" 
+
+      epigen addition -A "$gitpath" 
+      epigen deletion -A "$gitpath"
 
     done
 
