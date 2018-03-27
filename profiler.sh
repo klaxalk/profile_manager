@@ -6,7 +6,7 @@ expandPath() {
   local path
   local -a pathElements resultPathElements
   IFS=':' read -r -a pathElements <<<"$1"
-  : "${pathElements[@]}"
+  : "${pathElements[@]}" # `
   for path in "${pathElements[@]}"; do
     : "$path"
     case $path in
@@ -56,9 +56,9 @@ file_path: ...
     return 1
   fi
 
-  IFS=' ' read -r -a ADDITIONS_ARRAY <<< "$PROFILER_ADDITIONS"
-  IFS=' ' read -r -a DELETIONS_ARRAY <<< "$PROFILER_DELETIONS"
-  IFS=' ' read -r -a BOTH_ARRAY <<< "$PROFILER_BOTH"
+  IFS=' ' read -r -a ADDITIONS_ARRAY <<< "$PROFILER_ADDITIONS" # `
+  IFS=' ' read -r -a DELETIONS_ARRAY <<< "$PROFILER_DELETIONS" # `
+  IFS=' ' read -r -a BOTH_ARRAY <<< "$PROFILER_BOTH" # `
 
   # parse the csv file and extract file paths
   i="0"
@@ -87,7 +87,6 @@ file_path: ...
       # copy the file from the git path to the local path
       if [ ! -e "$localpath" ]; then
         mkdir -p `dirname "$localpath"`
-        cp "$gitpath" "$localpath"
       fi
 
       cp "$gitpath" "$localpath" 
@@ -136,16 +135,18 @@ file_path: ...
       localpath="$(expandPath ${locloc[$i]})"
 
       # copy the file from the git path to the local path
-      if [ ! -e "$localpath" ]; then
+      if [ -e "$localpath" ]; then
+
         mkdir -p `dirname "$localpath"`
         cp "$gitpath" "$localpath"
+
+        # copy the file from the local path to the git path
+        cp "$localpath" "$gitpath" 
+
+        epigen addition -A "$gitpath" 
+        epigen deletion -A "$gitpath"
+
       fi
-
-      # copy the file from the local path to the git path
-      cp "$localpath" "$gitpath" 
-
-      epigen addition -A "$gitpath" 
-      epigen deletion -A "$gitpath"
 
     done
 
