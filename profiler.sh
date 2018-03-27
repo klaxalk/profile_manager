@@ -137,9 +137,6 @@ file_path: ...
       # copy the file from the git path to the local path
       if [ -e "$localpath" ]; then
 
-        mkdir -p `dirname "$localpath"`
-        cp "$gitpath" "$localpath"
-
         # copy the file from the local path to the git path
         cp "$localpath" "$gitpath" 
 
