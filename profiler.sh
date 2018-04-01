@@ -86,7 +86,11 @@ file_path: ...
 
       # copy the file from the git path to the local path
       if [ ! -e "$localpath" ]; then
+
         mkdir -p `dirname "$localpath"`
+
+        echo "Dotprofiler: the local path $localpath did not exist during deploying, trying to create it."
+
       fi
 
       cp "$gitpath" "$localpath" 
@@ -142,6 +146,10 @@ file_path: ...
 
         epigen addition -A "$gitpath" 
         epigen deletion -A "$gitpath"
+
+      else
+
+        echo "Dotprofiler: backup of $localpath is not possible, the file does not exist."
 
       fi
 
