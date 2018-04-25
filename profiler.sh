@@ -79,6 +79,8 @@ file_path: ...
 
   if [[ "$OPERATION" == "deploy" ]]; then
 
+    echo "Deploying configs"
+
     # for each file
     for ((i=0; i < $N_FILES; i++));
     do
@@ -132,6 +134,8 @@ file_path: ...
     done
 
   elif [[ "$OPERATION" == "backup" ]]; then
+
+    echo "Backing up configs"
 
     # for each file
     for ((i=0; i < $N_FILES; i++));
