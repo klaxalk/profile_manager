@@ -62,10 +62,13 @@ file_path: ...
 
   # parse the csv file and extract file paths
   i="0"
-  while IFS=, read -r path1 path2; do
+  while IFS=, read -r path1 path2 style; do
+
     gitloc[$i]=`eval echo "$path1"`
     locloc[$i]=`eval echo "$path2"`
-    # echo "$i ${gitloc[$i]} ${locloc[$i]}"
+    # parse the commenting style and remove leading and trailing whitespaces
+    commenting_style[$i]="$(echo -e "${style}" | sed -e 's/^[[:space:]]*//' -e 's/[[:space:]]*$//')"
+
     i=$(expr $i + 1)
   done < "$FILES_PATH"
 
@@ -95,15 +98,15 @@ file_path: ...
 
       cp "$gitpath" "$localpath" 
 
-      epigen addition -A "$localpath" 
-      epigen deletion -A "$localpath" 
+      epigen -m addition -A -f "$localpath"  -c "${commenting_style[$i]}"
+      epigen -m deletion -A -f "$localpath"  -c "${commenting_style[$i]}"
 
       # for each addition mode
       for ((j=0; j < ${#ADDITIONS_ARRAY[*]}; j++));
       do
 
         # set the mode on the local file
-        epigen addition -s "$localpath" "${ADDITIONS_ARRAY[$j]}"
+        epigen -m addition -s -f "$localpath" -g "${ADDITIONS_ARRAY[$j]}" -c "${commenting_style[$i]}"
 
       done
 
@@ -112,7 +115,7 @@ file_path: ...
       do
 
         # set the mode on the local file
-        epigen deletion -s "$localpath" "${DELETIONS_ARRAY[$j]}"
+        epigen -m deletion -s -f "$localpath" -g "${DELETIONS_ARRAY[$j]}" -c "${commenting_style[$i]}"
 
       done
 
@@ -121,8 +124,8 @@ file_path: ...
       do
 
         # set the mode on the local file
-        epigen addition -s "$localpath" "${BOTH_ARRAY[$j]}"
-        epigen deletion -s "$localpath" "${BOTH_ARRAY[$j]}"
+        epigen -m addition -s -f "$localpath" -g "${BOTH_ARRAY[$j]}" -c "${commenting_style[$i]}"
+        epigen -m deletion -s -f "$localpath" -g "${BOTH_ARRAY[$j]}" -c "${commenting_style[$i]}"
 
       done
 
@@ -144,8 +147,8 @@ file_path: ...
         # copy the file from the local path to the git path
         cp "$localpath" "$gitpath" 
 
-        epigen addition -A "$gitpath" 
-        epigen deletion -A "$gitpath"
+        epigen -m addition -A -f "$gitpath"  -c "${commenting_style[$i]}"
+        epigen -m deletion -A -f "$gitpath" -c "${commenting_style[$i]}"
 
       else
 
