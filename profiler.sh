@@ -1,3 +1,5 @@
+#!/bin/bash
+
 PROFILER_SOURCE_DIR=`dirname "$BASH_SOURCE"`
 export PROFILER_SOURCE_DIR=`( cd "$PROFILER_SOURCE_DIR" && pwd )`
 
