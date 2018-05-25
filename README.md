@@ -143,3 +143,6 @@ git() {
   esac
 }
 ```
+
+then, when running e.g. _git pull_, it should look like this:
+![example_git_pull](misc/screenshot_git_pull.png)
