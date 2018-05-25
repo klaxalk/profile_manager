@@ -1,0 +1,9 @@
+# this is an example of a config gile
+
+export TEMP_VAR=VALUE
+
+# EPIGEN_ADD_BLOCK_TEST1 {
+
+# export TEMP_VAR2=VALUE
+
+# EPIGEN_ADD_BLOCK_TEST1 }

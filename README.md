@@ -22,8 +22,71 @@ No speial configuration is needed for either of those.
 
 Epigen utilizes Tim Pope's [vim-commentary](https://github.com/tpope/vim-commentary) vim plugin, which has been integrated in the Epigen's .vimrc.
 
-## Automating while using **git**
+## How to
 
+1. Dotprofiler expects a list of profiles (that should be activated) as exported variables (presumably set in .bashrc/.zshrc file).
+  Those are _PROFILER_ADDITIONS_ (effects only uncommenting), _PROFILER_DELETIONS_ (effects only commenting out) and _PROFILER_BOTH_ (effects both commenting and uncommenting). Example follows:
+  ```
+  export PROFILER_ADDITIONS=""
+  export PROFILER_DELETIONS="SPECIFIC_SETTING1"
+  export PROFILER_BOTH="JOHN LAPTOP"
+  ```
+2. The dotfiles, which should be handled by dotprofiler, should be listed within a config file.
+  Each line should contain the original path of the file (presumably in git repo), the local path (elsewhere, or ignored by git) and the commenting style descriptor for the particular syntax of the file (see [epigen](https://github.com/klaxalk/epigen).
+  The file might look like this:
+    ```
+  $GIT_PATH/linux-setup/appconfig/vim/dotvimrc, ~/.vimrc, \"\ %s
+  $GIT_PATH/linux-setup/appconfig/urxvt/dotXresources, ~/.Xresources, \!\ %s
+  $GIT_PATH/linux-setup/appconfig/bash/dotbashrc_git, $GIT_PATH/linux-setup/appconfig/bash/dotbashrc, \#\ %s
+  $GIT_PATH/linux-setup/appconfig/zsh/dotzshrc_git, $GIT_PATH/linux-setup/appconfig/zsh/dotzshrc, \#\ %s
+  ```
+3. Dotprofiler might be called either manually (see Examples) or hooked up to _git pull_ or other git commands.
+
+# Examples
+
+## Calling dotprofiler manually
+
+An example can be seen in **./example** subfolder.
+
+The script **deploy_configs.sh** deploys the _my_config.txt_ file to /tmp while it activates the _TEST1_ profile for both additions and deletions:
+```bash
+# make the script run in bash/zsh while having the dotfile sourced
+PNAME=$( ps -p "$$" -o comm= )
+SNAME=$( echo "$SHELL" | grep -Eo '[^/]+/?$' )
+if [ "$PNAME" != "$SNAME" ]; then
+  exec "$SHELL" "$0" "$@"
+  exit "$?"
+else
+  source ~/."$SNAME"rc
+fi
+
+export PROFILER_ADDITIONS=""
+export PROFILER_DELETIONS=""
+export PROFILER_BOTH="TEST1"
+
+../dotprofiler.sh deploy example_file_list.txt
+```
+
+The script **backup_config.sh** backups the same config file back while it unsets all profiles to the default state:
+```bash
+# make the script run in bash/zsh while having the dotfile sourced
+PNAME=$( ps -p "$$" -o comm= )
+SNAME=$( echo "$SHELL" | grep -Eo '[^/]+/?$' )
+if [ "$PNAME" != "$SNAME" ]; then
+  exec "$SHELL" "$0" "$@"
+  exit "$?"
+else
+  source ~/."$SNAME"rc
+fi
+
+../dotprofiler.sh backup example_file_list.txt
+```
+
+## Automating with **git**
+
+Hooking up Dotprofiler to git might seem to be possible using _git hooks_, however I struggled to find a solution, which could run custom commands both before and after _pull_, _checkout_ and _reset_.
+This can be solved by custom git alias, which can also contain other usefull stuff, e.g., updating submodules after pulling, etc.
+Please be inspired:
 ```bash
 # upgrades the "git pull" to allow dotfiles profiling on linux-setup
 # Other "git" features should not be changed
@@ -36,12 +99,12 @@ git() {
 
     if [[ "$?" == "0" ]]; then
 
-      # if we are in the 'linux-setup' repo, use the git profiler
+      # if we are in the 'linux-setup' repo, use the dotprofiler
       if [[ "$ROOT_DIR" == "$GIT_PATH/linux-setup" ]]; then
 
-        PROFILER="$GIT_PATH/linux-setup/submodules/dotprofiler/profiler.sh"
+        DOTPROFILER="$GIT_PATH/linux-setup/submodules/dotprofiler/dotprofiler.sh"
 
-        bash -c "$PROFILER backup $GIT_PATH/linux-setup/appconfig/dotprofiler/file_list.txt"
+        bash -c "$DOTPROFILER backup $GIT_PATH/linux-setup/appconfig/dotprofiler/file_list.txt"
 
         command git "$@"
 
@@ -52,7 +115,7 @@ git() {
 
         if [[ "$?" == "0" ]]; then
 
-          bash -c "$PROFILER deploy $GIT_PATH/linux-setup/appconfig/dotprofiler/file_list.txt"
+          bash -c "$DOTPROFILER deploy $GIT_PATH/linux-setup/appconfig/dotprofiler/file_list.txt"
 
         fi
 
