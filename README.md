@@ -15,16 +15,16 @@ This piece of software allows to create profiles in linux _dotfiles_.
 
   ## Dependencies
 
-    Dotprofiler depends (through [Epigen](https://github.com/klaxalk/epigen)) on
+    Dotprofiler depends (through [epigen](https://github.com/klaxalk/epigen)) on
   1. **bash**,
   2. **vim** (7.0 or higher).
   No speial configuration is needed for either of those.
 
-  Epigen utilizes Tim Pope's [vim-commentary](https://github.com/tpope/vim-commentary) vim plugin, which has been integrated in the Epigen's .vimrc.
+  Epigen utilizes Tim Pope's [vim-commentary](https://github.com/tpope/vim-commentary) vim plugin, which has been integrated in the epigen's .vimrc.
 
   ## How to
 
-  1. The dotfiles, containing profile-specific code, should follow [Epigen](https://github.com/klaxalk/epigen)'s syntax.
+  1. The dotfiles, containing profile-specific code, should follow [epigen](https://github.com/klaxalk/epigen)'s syntax.
   2. Dotprofiler expects a list of profiles (that should be activated) as exported variables (presumably set in .bashrc/.zshrc file).
      Those are _PROFILER_ADDITIONS_ (effects only uncommenting), _PROFILER_DELETIONS_ (effects only commenting out) and _PROFILER_BOTH_ (effects both commenting out and uncommenting). Example follows:
      ```
@@ -33,7 +33,7 @@ This piece of software allows to create profiles in linux _dotfiles_.
      export PROFILER_BOTH="JOHN LAPTOP"
      ```
   3. The dotfiles, which should be handled by dotprofiler, should be listed within a config file.
-     Each line should contain the original path of the file (presumably in git repo), the local path (elsewhere, or ignored by git) and the commenting style descriptor for the particular syntax of the file (see [Epigen](https://github.com/klaxalk/epigen).
+     Each line should contain the original path of the file (presumably in git repo), the local path (elsewhere, or ignored by git) and the commenting style descriptor for the particular syntax of the file (see [epigen](https://github.com/klaxalk/epigen)).
      The file might look like this:
      ```
      $GIT_PATH/linux-setup/appconfig/vim/dotvimrc, ~/.vimrc, \"\ %s
@@ -85,12 +85,10 @@ This piece of software allows to create profiles in linux _dotfiles_.
 
   ## Automating with **git**
 
-  Hooking up Dotprofiler to git might seem to be possible using _git hooks_, however I struggled to find a solution, which could run custom commands both before and after _pull_, _checkout_ and _reset_.
+  Hooking up dotprofiler to git might seem to be possible using _git hooks_, however I struggled to find a solution, which could run custom commands both before and after _pull_, _checkout_ and _reset_.
   This can be solved by custom git alias, which can also contain other usefull stuff, e.g., updating submodules after pulling, etc.
   Please be inspired:
   ```bash
-  # upgrades the "git pull" to allow dotfiles profiling on linux-setup
-  # Other "git" features should not be changed
   git() {
 
     case $* in pull*|checkout*|"reset --hard")
