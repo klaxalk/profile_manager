@@ -33,7 +33,7 @@ Epigen utilizes Tim Pope's [vim-commentary](https://github.com/tpope/vim-comment
    export PROFILER_BOTH="JOHN LAPTOP"
    ```
 3. The dotfiles, which should be handled by dotprofiler, should be listed within a config file.
-   Each line should contain the original path of the file (presumably in git repo), the local path (elsewhere, or ignored by git) and the commenting style descriptor for the particular syntax of the file (see [epigen](https://github.com/klaxalk/epigen).
+   Each line should contain the original path of the file (presumably in git repo), the local path (elsewhere, or ignored by git) and the commenting style descriptor for the particular syntax of the file (see [Epigen](https://github.com/klaxalk/epigen).
    The file might look like this:
    ```
    $GIT_PATH/linux-setup/appconfig/vim/dotvimrc, ~/.vimrc, \"\ %s
