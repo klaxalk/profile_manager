@@ -15,7 +15,7 @@ Dotprofiler takes care of automatic commenting/uncommenting of sections of dotfi
 
 ## Dependencies
 
-Dotprofiler depends (through [Epigen](https://github.com/klaxalk/epigen)) on
+  Dotprofiler depends (through [Epigen](https://github.com/klaxalk/epigen)) on
 1. **bash**,
 2. **vim** (7.0 or higher).
 No speial configuration is needed for either of those.
@@ -26,7 +26,7 @@ Epigen utilizes Tim Pope's [vim-commentary](https://github.com/tpope/vim-comment
 
 1. The dotfiles, containing profile-specific code, should follow [Epigen](https://github.com/klaxalk/epigen)'s syntax.
 2. Dotprofiler expects a list of profiles (that should be activated) as exported variables (presumably set in .bashrc/.zshrc file).
-   Those are _PROFILER_ADDITIONS_ (effects only uncommenting), _PROFILER_DELETIONS_ (effects only commenting out) and _PROFILER_BOTH_ (effects both commenting and uncommenting). Example follows:
+   Those are _PROFILER_ADDITIONS_ (effects only uncommenting), _PROFILER_DELETIONS_ (effects only commenting out) and _PROFILER_BOTH_ (effects both commenting out and uncommenting). Example follows:
    ```
    export PROFILER_ADDITIONS=""
    export PROFILER_DELETIONS="SPECIFIC_SETTING1"
