@@ -25,21 +25,21 @@ Epigen utilizes Tim Pope's [vim-commentary](https://github.com/tpope/vim-comment
 ## How to
 
 1. Dotprofiler expects a list of profiles (that should be activated) as exported variables (presumably set in .bashrc/.zshrc file).
-  Those are _PROFILER_ADDITIONS_ (effects only uncommenting), _PROFILER_DELETIONS_ (effects only commenting out) and _PROFILER_BOTH_ (effects both commenting and uncommenting). Example follows:
-  ```
-  export PROFILER_ADDITIONS=""
-  export PROFILER_DELETIONS="SPECIFIC_SETTING1"
-  export PROFILER_BOTH="JOHN LAPTOP"
-  ```
+   Those are _PROFILER_ADDITIONS_ (effects only uncommenting), _PROFILER_DELETIONS_ (effects only commenting out) and _PROFILER_BOTH_ (effects both commenting and uncommenting). Example follows:
+   ```
+   export PROFILER_ADDITIONS=""
+   export PROFILER_DELETIONS="SPECIFIC_SETTING1"
+   export PROFILER_BOTH="JOHN LAPTOP"
+   ```
 2. The dotfiles, which should be handled by dotprofiler, should be listed within a config file.
-  Each line should contain the original path of the file (presumably in git repo), the local path (elsewhere, or ignored by git) and the commenting style descriptor for the particular syntax of the file (see [epigen](https://github.com/klaxalk/epigen).
-  The file might look like this:
-    ```
-  $GIT_PATH/linux-setup/appconfig/vim/dotvimrc, ~/.vimrc, \"\ %s
-  $GIT_PATH/linux-setup/appconfig/urxvt/dotXresources, ~/.Xresources, \!\ %s
-  $GIT_PATH/linux-setup/appconfig/bash/dotbashrc_git, $GIT_PATH/linux-setup/appconfig/bash/dotbashrc, \#\ %s
-  $GIT_PATH/linux-setup/appconfig/zsh/dotzshrc_git, $GIT_PATH/linux-setup/appconfig/zsh/dotzshrc, \#\ %s
-  ```
+   Each line should contain the original path of the file (presumably in git repo), the local path (elsewhere, or ignored by git) and the commenting style descriptor for the particular syntax of the file (see [epigen](https://github.com/klaxalk/epigen).
+   The file might look like this:
+   ```
+   $GIT_PATH/linux-setup/appconfig/vim/dotvimrc, ~/.vimrc, \"\ %s
+   $GIT_PATH/linux-setup/appconfig/urxvt/dotXresources, ~/.Xresources, \!\ %s
+   $GIT_PATH/linux-setup/appconfig/bash/dotbashrc_git, $GIT_PATH/linux-setup/appconfig/bash/dotbashrc, \#\ %s
+   $GIT_PATH/linux-setup/appconfig/zsh/dotzshrc_git, $GIT_PATH/linux-setup/appconfig/zsh/dotzshrc, \#\ %s
+   ```
 3. Dotprofiler might be called either manually (see Examples) or hooked up to _git pull_ or other git commands.
 
 # Examples
@@ -145,4 +145,5 @@ git() {
 ```
 
 then, when running e.g. _git pull_, it should look like this:
+
 ![example_git_pull](misc/screenshot_git_pull.png)
