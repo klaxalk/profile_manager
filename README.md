@@ -18,6 +18,65 @@ Dotprofiler takes care of automatic commenting/uncommenting of sections of dotfi
 Dotprofiler depends (through [Epigen](https://github.com/klaxalk/epigen) on
 1. **bash**,
 2. **vim** (7.0 or higher).
-No special configuration is needed for either of those.
+No speial configuration is needed for either of those.
 
 Epigen utilizes Tim Pope's [vim-commentary](https://github.com/tpope/vim-commentary) vim plugin, which has been integrated in the Epigen's .vimrc.
+
+## Automating while using **git**
+
+```bash
+# upgrades the "git pull" to allow dotfiles profiling on linux-setup
+# Other "git" features should not be changed
+git() {
+
+  case $* in pull*|checkout*|"reset --hard")
+
+    # give me the path to root of the repo we are in
+    ROOT_DIR=`git rev-parse --show-toplevel` 2> /dev/null
+
+    if [[ "$?" == "0" ]]; then
+
+      # if we are in the 'linux-setup' repo, use the git profiler
+      if [[ "$ROOT_DIR" == "$GIT_PATH/linux-setup" ]]; then
+
+        PROFILER="$GIT_PATH/linux-setup/submodules/dotprofiler/profiler.sh"
+
+        bash -c "$PROFILER backup $GIT_PATH/linux-setup/appconfig/dotprofiler/file_list.txt"
+
+        command git "$@"
+
+        case $* in pull*)
+          echo "Updating git submodules"
+          command git submodule update --init --recursive
+        esac
+
+        if [[ "$?" == "0" ]]; then
+
+          bash -c "$PROFILER deploy $GIT_PATH/linux-setup/appconfig/dotprofiler/file_list.txt"
+
+        fi
+
+      else
+        command git "$@"
+        case $* in pull*)
+          echo "Updating git submodules"
+          command git submodule update --init --recursive
+        esac
+      fi
+
+    else
+      command git "$@"
+      case $* in pull*)
+        echo "Updating git submodules"
+        command git submodule update --init --recursive
+      esac
+    fi
+
+    ;;
+  *)
+    command git "$@"
+    ;;
+
+  esac
+}
+```
