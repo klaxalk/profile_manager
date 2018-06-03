@@ -86,6 +86,18 @@ fi
 ../dotprofiler.sh backup example_file_list.txt
 ```
 
+## Basic workflow
+
+Since the selected files will apear in two places on your system
+* the ***original*, typically synced with git,
+* the **personalized**, which is only local and should not be commited,
+following workflow should be established:
+
+1. Before any **git** action, which might modify or commit files in the repository, the **personalized** configs should be backud app to git and all profiles should be unset.
+2. After any action in **git** repo, which might modify the files (reset, checkout, pull, ...), local file should be updated.
+
+The workflow can be automated, see the following section.
+
 ## Automating with **git**
 
 Hooking up dotprofiler to git might seem to be possible using _git hooks_, however I struggled to find a solution, which could run custom commands both before and after _pull_, _checkout_ and _reset_.
