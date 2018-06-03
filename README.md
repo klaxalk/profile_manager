@@ -90,7 +90,7 @@ fi
 
 Since the selected files will apear in two places on your system
 
-* the ***original*, typically synced with git,
+* the ***original**, typically synced with git,
 * the **personalized**, which is only local and should not be commited,
 
 following workflow should be established:
