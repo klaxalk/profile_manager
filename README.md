@@ -18,7 +18,7 @@ Dotprofiler takes care of automatic commenting/uncommenting of sections of dotfi
 
 ## Dependencies
 
-Dotprofiler depends (through [epigen](https://github.com/klaxalk/epigen)) on
+Dotprofiler depends (via [epigen](https://github.com/klaxalk/epigen)) on
 1. **bash**,
 2. **vim** (7.0 or higher).
 No speial configuration is needed for either of those.
