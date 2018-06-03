@@ -87,7 +87,7 @@ This piece of software allows to create profiles in linux _dotfiles_.
 
   Hooking up dotprofiler to git might seem to be possible using _git hooks_, however I struggled to find a solution, which could run custom commands both before and after _pull_, _checkout_ and _reset_.
   This can be solved by custom git alias, which can also contain other usefull stuff, e.g., updating submodules after pulling, etc.
-  Please be inspired:
+  Please be inspired, but do not forget to **change the path to your repository**:
   ```bash
   git() {
 
