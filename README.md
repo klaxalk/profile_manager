@@ -89,8 +89,10 @@ fi
 ## Basic workflow
 
 Since the selected files will apear in two places on your system
+
 * the ***original*, typically synced with git,
 * the **personalized**, which is only local and should not be commited,
+
 following workflow should be established:
 
 1. Before any **git** action, which might modify or commit files in the repository, the **personalized** configs should be backud app to git and all profiles should be unset.
