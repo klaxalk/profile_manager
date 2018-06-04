@@ -51,7 +51,9 @@ This piece of software allows to create profiles in linux _dotfiles_.
 
   The script **deploy_configs.sh** deploys the _my_config.txt_ file to /tmp while it activates the _TEST1_ profile for both additions and deletions:
   ```bash
-  # make the script run in bash/zsh while having the dotfile sourced
+  # - make the script run in bash/zsh while having its dotfile sourced
+  # - this is important when there are variables exported, which might
+  #   be used by this script
   PNAME=$( ps -p "$$" -o comm= )
   SNAME=$( echo "$SHELL" | grep -Eo '[^/]+/?$' )
   if [ "$PNAME" != "$SNAME" ]; then
@@ -70,7 +72,9 @@ This piece of software allows to create profiles in linux _dotfiles_.
 
   The script **backup_config.sh** backups the same config file back while it unsets all profiles to the default state:
   ```bash
-  # make the script run in bash/zsh while having the dotfile sourced
+  # - make the script run in bash/zsh while having its dotfile sourced
+  # - this is important when there are variables exported, which might
+  #   be used by this script
   PNAME=$( ps -p "$$" -o comm= )
   SNAME=$( echo "$SHELL" | grep -Eo '[^/]+/?$' )
   if [ "$PNAME" != "$SNAME" ]; then
