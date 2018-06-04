@@ -56,6 +56,8 @@ The script **deploy_configs.sh** deploys the _my_config.txt_ file to /tmp while 
 # - make the script run in bash/zsh while having its dotfile sourced
 # - this is important when there are variables exported, which might
 #   be used by this script
+# - however for this to work, the variable definition in .bashrc
+#   should be above the "interactivity" condition, zsh is fine.
 PNAME=$( ps -p "$$" -o comm= )
 SNAME=$( echo "$SHELL" | grep -Eo '[^/]+/?$' )
 if [ "$PNAME" != "$SNAME" ]; then
@@ -77,6 +79,8 @@ The script **backup_config.sh** backups the same config file back while it unset
 # - make the script run in bash/zsh while having its dotfile sourced
 # - this is important when there are variables exported, which might
 #   be used by this script
+# - however for this to work, the variable definition in .bashrc
+#   should be above the "interactivity" condition, zsh is fine.
 PNAME=$( ps -p "$$" -o comm= )
 SNAME=$( echo "$SHELL" | grep -Eo '[^/]+/?$' )
 if [ "$PNAME" != "$SNAME" ]; then
