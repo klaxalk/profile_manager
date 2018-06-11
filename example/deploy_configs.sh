@@ -16,4 +16,4 @@ export PROFILER_ADDITIONS=""
 export PROFILER_DELETIONS=""
 export PROFILER_BOTH="TEST1"
 
-../profileManager.sh deploy example_file_list.txt
+../profile_manager.sh deploy example_file_list.txt

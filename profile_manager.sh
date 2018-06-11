@@ -1,7 +1,7 @@
 #!/bin/bash
 
-PROFILER_SOURCE_DIR=`dirname "$BASH_SOURCE"`
-export PROFILER_SOURCE_DIR=`( cd "$PROFILER_SOURCE_DIR" && pwd )`
+PROFILE_MANAGER_SOURCE_DIR=`dirname "$BASH_SOURCE"`
+export PROFILE_MANAGER_SOURCE_DIR=`( cd "$PROFILE_MANAGER_SOURCE_DIR" && pwd )`
 
 expandPath() {
 
@@ -39,9 +39,9 @@ expandPath() {
   printf '%s\n' "${result%:}"
 }
 
-profileManager() {
+profile_manager() {
 
-  HELP="Profile manager: profileManager OPERATION FILE_LIST_PATH
+  HELP="Profile manager: profile_manager OPERATION FILE_LIST_PATH
 Arguments:
 
   OPERATION:
@@ -76,9 +76,9 @@ Arguments:
     return 1
   fi
 
-  IFS=' ' read -r -a ADDITIONS_ARRAY <<< "$PROFILER_ADDITIONS" # `
-  IFS=' ' read -r -a DELETIONS_ARRAY <<< "$PROFILER_DELETIONS" # `
-  IFS=' ' read -r -a BOTH_ARRAY <<< "$PROFILER_BOTH" # `
+  IFS=' ' read -r -a ADDITIONS_ARRAY <<< "$PROFILES_ADDITIONS" # `
+  IFS=' ' read -r -a DELETIONS_ARRAY <<< "$PROFILES_DELETIONS" # `
+  IFS=' ' read -r -a BOTH_ARRAY <<< "$PROFILES_BOTH" # `
 
   # parse the csv file and extract file paths
   i="0"
@@ -95,7 +95,7 @@ Arguments:
   OPERATION="$1"
   N_FILES="$i"
 
-  source "$PROFILER_SOURCE_DIR"/epigen/epigen.sh
+  source "$PROFILE_MANAGER_SOURCE_DIR"/epigen/epigen.sh
 
   if [[ "$OPERATION" == "deploy" ]]; then
 
@@ -188,4 +188,4 @@ Arguments:
   fi
 }
 
-profileManager "$@"
+profile_manager "$@"

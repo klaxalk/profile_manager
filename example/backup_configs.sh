@@ -12,4 +12,4 @@ else
   source ~/."$SNAME"rc
 fi
 
-../profileManager.sh backup example_file_list.txt
+../profile_manager.sh backup example_file_list.txt
