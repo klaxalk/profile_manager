@@ -29,11 +29,11 @@ Epigen utilizes Tim Pope's [vim-commentary](https://github.com/tpope/vim-comment
 
 1. The dotfiles, containing profile-specific code, should follow [epigen](https://github.com/klaxalk/epigen)'s syntax.
 2. _Profile manager expects a list of profiles (that should be activated) as exported variables (presumably set in .bashrc/.zshrc file).
- Those are _PROFILER_ADDITIONS_ (effects only uncommenting), _PROFILER_DELETIONS_ (effects only commenting out) and _PROFILER_BOTH_ (effects both commenting out and uncommenting). Example follows:
+ Those are _PROFILES_ADDITIONS_ (effects only uncommenting), _PROFILES_DELETIONS_ (effects only commenting out) and _PROFILES_BOTH_ (effects both commenting out and uncommenting). Example follows:
  ```
- export PROFILER_ADDITIONS=""
- export PROFILER_DELETIONS="SPECIFIC_SETTING1"
- export PROFILER_BOTH="JOHN LAPTOP"
+ export PROFILES_ADDITIONS=""
+ export PROFILES_DELETIONS="SPECIFIC_SETTING1"
+ export PROFILES_BOTH="JOHN LAPTOP"
  ```
 3. The dotfiles, which should be handled by _Profile manager, should be listed within a config file.
  Each line should contain the original path of the file (presumably in git repo), the local path (elsewhere, or ignored by git) and the commenting style descriptor for the particular syntax of the file (see [epigen](https://github.com/klaxalk/epigen)).

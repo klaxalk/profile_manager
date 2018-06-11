@@ -12,8 +12,8 @@ else
   source ~/."$SNAME"rc
 fi
 
-export PROFILER_ADDITIONS=""
-export PROFILER_DELETIONS=""
-export PROFILER_BOTH="TEST1"
+export PROFILES_ADDITIONS=""
+export PROFILES_DELETIONS=""
+export PROFILES_BOTH="TEST1"
 
 ../profile_manager.sh deploy example_file_list.txt
