@@ -39,9 +39,9 @@ expandPath() {
   printf '%s\n' "${result%:}"
 }
 
-dotprofiler() {
+profileManager() {
 
-  HELP="dotprofiler: epigen OPERATION FILE_LIST_PATH
+  HELP="Profile manager: profileManager OPERATION FILE_LIST_PATH
 Arguments:
 
   OPERATION:
@@ -114,7 +114,7 @@ Arguments:
 
         mkdir -p `dirname "$localpath"`
 
-        echo "Dotprofiler: the local path $localpath did not exist during deploying, trying to create it."
+        echo "Profile manager: the local path $localpath did not exist during deploying, trying to create it."
 
       fi
 
@@ -176,7 +176,7 @@ Arguments:
 
       else
 
-        echo "Dotprofiler: backup of $localpath is not possible, the file does not exist."
+        echo "Profile manager: backup of $localpath is not possible, the file does not exist."
 
       fi
 
@@ -188,4 +188,4 @@ Arguments:
   fi
 }
 
-dotprofiler "$@"
+profileManager "$@"

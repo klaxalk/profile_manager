@@ -16,4 +16,4 @@ export PROFILER_ADDITIONS=""
 export PROFILER_DELETIONS=""
 export PROFILER_BOTH="TEST1"
 
-../dotprofiler.sh deploy example_file_list.txt
+../profileManager.sh deploy example_file_list.txt
