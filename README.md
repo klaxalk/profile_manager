@@ -50,7 +50,7 @@ Epigen utilizes Tim Pope's [vim-commentary](https://github.com/tpope/vim-comment
 
 ## Calling _Profile manager_ manually
 
-An example can be seen in **./example** subfolder.
+An example can be seen in **example** subfolder.
 
 The script **deploy_configs.sh** deploys the _my_config.txt_ file to /tmp while it activates the _TEST1_ profile for both additions and deletions:
 ```bash
