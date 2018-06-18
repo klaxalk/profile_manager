@@ -52,7 +52,7 @@ Arguments:
 
   FILE_LIST_PATH:
   ---------------
-    
+
     path to a file with the list of files, which should be synchronized. The file list
     follows the structure of:
     ORIGINAL_PATH1, LOCAL_PATH1, COMMENTARY_STYLE
@@ -118,10 +118,10 @@ Arguments:
 
       fi
 
-      cp "$gitpath" "$localpath" 
+      cp "$gitpath" "$localpath"
 
-      epigen -m addition -A -f "$localpath"  -c "${commenting_style[$i]}"
-      epigen -m deletion -A -f "$localpath"  -c "${commenting_style[$i]}"
+      epigen -m addition -A -f "$localpath" -c "${commenting_style[$i]}"
+      epigen -m deletion -A -f "$localpath" -c "${commenting_style[$i]}"
 
       # for each addition mode
       for ((j=0; j < ${#ADDITIONS_ARRAY[*]}; j++));
@@ -169,9 +169,9 @@ Arguments:
       if [ -e "$localpath" ]; then
 
         # copy the file from the local path to the git path
-        cp "$localpath" "$gitpath" 
+        cp "$localpath" "$gitpath"
 
-        epigen -m addition -A -f "$gitpath"  -c "${commenting_style[$i]}"
+        epigen -m addition -A -f "$gitpath" -c "${commenting_style[$i]}"
         epigen -m deletion -A -f "$gitpath" -c "${commenting_style[$i]}"
 
       else
