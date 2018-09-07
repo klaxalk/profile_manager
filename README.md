@@ -18,9 +18,9 @@ _Profile manager_ takes care of automatic commenting/uncommenting of sections of
 
 ## Dependencies
 
-_Profile manager_ depends (via [epigen](https://github.com/klaxalk/epigen)) on
-1. **bash**,
-2. **vim** (7.0 or higher).
+_Profile manager_ depends on
+1. **bash** (need array manipulation, etc.),
+2. **vim** (via [epigen](https://github.com/klaxalk/epigen))
 No speial configuration is needed for either of those.
 
 Epigen utilizes Tim Pope's [vim-commentary](https://github.com/tpope/vim-commentary) vim plugin, which has been integrated in the epigen's .vimrc.

@@ -3,42 +3,6 @@
 PROFILE_MANAGER_SOURCE_DIR=`dirname "$BASH_SOURCE"`
 export PROFILE_MANAGER_SOURCE_DIR=`( cd "$PROFILE_MANAGER_SOURCE_DIR" && pwd )`
 
-expandPath() {
-
-  local path
-  local -a pathElements resultPathElements
-  IFS=':' read -r -a pathElements <<<"$1"
-  : "${pathElements[@]}" # `
-  for path in "${pathElements[@]}"; do
-    : "$path"
-    case $path in
-      "~+"/*)
-        path=$PWD/${path#"~+/"}
-        ;;
-      "~-"/*)
-        path=$OLDPWD/${path#"~-/"}
-        ;;
-      "~"/*)
-        path=$HOME/${path#"~/"}
-        ;;
-      "~"*)
-        username=${path%%/*}
-        username=${username#"~"}
-        IFS=: read _ _ _ _ _ homedir _ < <(getent passwd "$username")
-        if [[ $path = */* ]]; then
-          path=${homedir}/${path#*/}
-        else
-          path=$homedir
-        fi
-        ;;
-    esac
-    resultPathElements+=( "$path" )
-  done
-  local result
-  printf -v result '%s:' "${resultPathElements[@]}"
-  printf '%s\n' "${result%:}"
-}
-
 profile_manager() {
 
   HELP="Profile manager: profile_manager OPERATION FILE_LIST_PATH
@@ -106,8 +70,8 @@ Arguments:
     do
 
       # get the full path to the file
-      gitpath="$(expandPath ${gitloc[$i]})"
-      localpath="$(expandPath ${locloc[$i]})"
+      gitpath="$(realpath ${gitloc[$i]})"
+      localpath="$(realpath ${locloc[$i]})"
 
       # copy the file from the git path to the local path
       if [ ! -e "$localpath" ]; then
@@ -162,8 +126,8 @@ Arguments:
     do
 
       # get the full path to the file
-      gitpath="$(expandPath ${gitloc[$i]})"
-      localpath="$(expandPath ${locloc[$i]})"
+      gitpath="$(realpath ${gitloc[$i]})"
+      localpath="$(realpath ${locloc[$i]})"
 
       # copy the file from the git path to the local path
       if [ -e "$localpath" ]; then
