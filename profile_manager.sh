@@ -40,6 +40,8 @@ Arguments:
     return 1
   fi
 
+  [ -n "$PROFILES" ] && [ -n "$PROFILES_BOTH" ] && PROFILES_BOTH="$PROFILES"
+
   IFS=' ' read -r -a ADDITIONS_ARRAY <<< "$PROFILES_ADDITIONS" # `
   IFS=' ' read -r -a DELETIONS_ARRAY <<< "$PROFILES_DELETIONS" # `
   IFS=' ' read -r -a BOTH_ARRAY <<< "$PROFILES_BOTH" # `
